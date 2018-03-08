@@ -75,14 +75,15 @@
           $sessionTerminate = $row['sessionTerminate'];
           $macAddress = $row['macAddress'];
           $carrier = $row['carrier'];
-          $locationZone = $row['locationZone'];
-          $locationZone = str_replace("'", "''", $locationZone);
+          // $locationZone = $row['locationZone'];
+          // $locationZone = str_replace("'", "''", $locationZone);
           $macAssignment = $row['macAssignment'];
+          $calledstationid = $row['calledstationid'];
 
           if($sessionStop == NULL){
-            $insertQuery = "INSERT INTO dbo.radiusreport (id, username, nasipaddress, nasportid, sessionStart, sessionStop, dataUpload, dataDownload, sessionTerminate, macAddress, carrier, locationZone, macAssignment) VALUES ('$id', '$username', '$nasipaddress', '$nasportid', '$sessionStart', NULL, '$dataUpload', '$dataDownload', '$sessionTerminate', '$macAddress', '$carrier', '$locationZone', '$macAssignment')";
+            $insertQuery = "INSERT INTO dbo.radiusreport (id, username, nasipaddress, nasportid, sessionStart, sessionStop, dataUpload, dataDownload, sessionTerminate, macAddress, carrier, macAssignment, calledstationid) VALUES ('$id', '$username', '$nasipaddress', '$nasportid', '$sessionStart', NULL, '$dataUpload', '$dataDownload', '$sessionTerminate', '$macAddress', '$carrier', '$macAssignment', '$calledstationid')";
           }else{
-            $insertQuery = "INSERT INTO dbo.radiusreport (id, username, nasipaddress, nasportid, sessionStart, sessionStop, dataUpload, dataDownload, sessionTerminate, macAddress, carrier, locationZone, macAssignment) VALUES ('$id', '$username', '$nasipaddress', '$nasportid', '$sessionStart', '$sessionStop', '$dataUpload', '$dataDownload', '$sessionTerminate', '$macAddress', '$carrier', '$locationZone', '$macAssignment')";
+            $insertQuery = "INSERT INTO dbo.radiusreport (id, username, nasipaddress, nasportid, sessionStart, sessionStop, dataUpload, dataDownload, sessionTerminate, macAddress, carrier, macAssignment, calledstationid) VALUES ('$id', '$username', '$nasipaddress', '$nasportid', '$sessionStart', '$sessionStop', '$dataUpload', '$dataDownload', '$sessionTerminate', '$macAddress', '$carrier', '$macAssignment', '$calledstationid')";
           }
 
           $res = $this->azConn->query($insertQuery);
