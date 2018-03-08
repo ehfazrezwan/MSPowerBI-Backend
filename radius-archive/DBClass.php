@@ -118,7 +118,7 @@ class DBClass{
 
     echo $lastID;
 
-    $query = "SELECT radacctid, username, nasipaddress, nasportid, acctstarttime, acctstoptime, acctinputoctets, acctoutputoctets, acctterminatecause, locationmapping.zone, callingstationid FROM radacct LEFT JOIN locationmapping ON locationmapping.ipAddress = nasipaddress WHERE radacctid > '$lastID' ORDER BY radacctid ASC LIMIT 1000000";
+    $query = "SELECT radacctid, username, nasipaddress, nasportid, acctstarttime, acctstoptime, acctinputoctets, acctoutputoctets, acctterminatecause, callingstationid, calledstationid FROM radacct WHERE radacctid > '$lastID' ORDER BY radacctid ASC LIMIT 1000000";
     $result = mysqli_query($this->vmConn, $query);
     $result = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
@@ -135,11 +135,12 @@ class DBClass{
       $sessionTerminate = $row['acctterminatecause'];
       $macAddress = $row['callingstationid'];
       $carrier = $this->getDeviceCarrier($username);
-      $locationZone = $row['zone'];
-      $locationZone = str_replace("'", "''", $locationZone);
-      $macAssignment = substr(str_replace(":", "", $macAddress), 0, 6);;
+      // $locationZone = $row['zone'];
+      // $locationZone = str_replace("'", "''", $locationZone);
+      $macAssignment = substr(str_replace(":", "", $macAddress), 0, 6);
+      $calledstationid = $row['calledstationid'];
 
-      $query = "INSERT INTO radiusreport (id, username, nasipaddress, nasportid, sessionStart, sessionStop, dataUpload, dataDownload, sessionTerminate, macAddress, carrier, locationZone, macAssignment) VALUES('$id', '$username', '$nasipaddress', '$nasportid', '$sessionStart', '$sessionStop', '$dataUpload', '$dataDownload', '$sessionTerminate', '$macAddress', '$carrier', '$locationZone', '$macAssignment')";
+      $query = "INSERT INTO radiusreport (id, username, nasipaddress, nasportid, sessionStart, sessionStop, dataUpload, dataDownload, sessionTerminate, macAddress, carrier, macAssignment, calledstationid) VALUES('$id', '$username', '$nasipaddress', '$nasportid', '$sessionStart', '$sessionStop', '$dataUpload', '$dataDownload', '$sessionTerminate', '$macAddress', '$carrier', '$macAssignment', '$calledstationid')";
       $result = mysqli_query($this->vmConn, $query);
 
       if(!$result){

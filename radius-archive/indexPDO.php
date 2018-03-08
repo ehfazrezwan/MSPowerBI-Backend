@@ -5,7 +5,7 @@
   $az = new AzurePDO();
   $db = new DBClass();
 
-  $db->insertRadacct();
+  // $db->insertRadacct();
   $db->insertRadReport();
   $az->pushToAzure();
 
