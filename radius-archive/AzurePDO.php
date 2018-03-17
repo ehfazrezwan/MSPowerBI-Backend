@@ -6,11 +6,11 @@
 
     function __construct(){
 
-      $radiusHost = "wifi.aamra.com.bd";
+      $radiusHost = "182.160.96.233";
       $radiusUsername = "ehfaz";
       $radiusPassword = "anl123";
 
-      $vmHost = "localhost";
+      $vmHost = "45.64.135.236";
       $vmUser = "phpmyadmin";
       $vmPass = "WErsdfser##";
 

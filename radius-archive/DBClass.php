@@ -5,11 +5,11 @@ class DBClass{
   private $vmConn, $radiusConn, $radConn;
 
   function __construct(){
-    $radiusHost = "wifi.aamra.com.bd";
+    $radiusHost = "182.160.96.233";
     $radiusUsername = "ehfaz";
     $radiusPassword = "anl123";
 
-    $vmHost = "localhost";
+    $vmHost = "45.64.135.236";
     $vmUser = "phpmyadmin";
     $vmPass = "WErsdfser##";
 
@@ -116,11 +116,17 @@ class DBClass{
       $lastID = 0;
     }
 
-    echo $lastID;
-
-    $query = "SELECT radacctid, username, nasipaddress, nasportid, acctstarttime, acctstoptime, acctinputoctets, acctoutputoctets, acctterminatecause, callingstationid, calledstationid FROM radacct WHERE radacctid > '$lastID' ORDER BY radacctid ASC LIMIT 1000000";
-    $result = mysqli_query($this->vmConn, $query);
+    $query = "SELECT * FROM radacct WHERE radacctid > '$lastID'";
+    $result = mysqli_query($this->radiusConn, $query);
     $result = mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+    echo $query;
+    echo "<br>";
+    if($result){
+      echo "true";
+    }else{
+      echo "false";
+    }
 
     foreach($result as $row){
 
@@ -149,6 +155,10 @@ class DBClass{
         echo "<br>";
         echo $query;
         echo "</pre>";
+      }else{
+        echo "<pre>";        
+        echo $query;
+        echo "</pre>";        
       }
     }
 
